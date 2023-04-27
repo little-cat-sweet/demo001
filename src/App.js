@@ -1,9 +1,10 @@
 import './App.css';
+import Manage from "./Components/Manage";
 
 function App() {
     return (
         <div>
-            hello world
+            <Manage/>
         </div>
     );
 }
