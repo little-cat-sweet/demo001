@@ -4,11 +4,8 @@ class Item extends Component{
 
     state = {
 
-        person : this.props.person,
-        name : this.props.person.name,
-        age : this.props.person.age,
-        updatePerson : this.props.updatePerson,
-        deletePerson : this.props.deletePerson
+        deletePerson : this.props.deletePerson,
+        updateChecked : this.props.updateChecked
     }
 
     componentDidMount() {
@@ -23,30 +20,28 @@ class Item extends Component{
         newPerson.id = id;
         newPerson.name = this.state.name;
         newPerson.age = this.state.age
-        this.state.updatePerson(id, newPerson)
-    }
-
-    updateName = (e) => {
-
-        this.setState({name : e.target.value})
-    }
-
-    updateAge = (e) => {
-
-        this.setState({age : e.target.value})
     }
 
     delete = () => {
+
         this.state.deletePerson(this.props.person.id)
+    }
+
+    updateC = (id) => {
+        return (event) => {
+            this.state.updateChecked(id, event.target.checked);
+        }
     }
 
 
     render() {
+        const {done, id, name, age} = this.props.person
         return(
             <div className="Item">
                 <li>
-                    person name is <input onChange={this.updateName}  value = {this.state.name}/>, and person age is <input onChange={this.updateAge} value = {this.state.age}/>
-                    <button onClick={this.update}>update</button> <button onClick={this.delete}>delete</button>
+                    <label><input type="checkbox"  checked={done} onChange={this.updateC(id)}/></label>
+                    person name is {name}, and person age is {age}
+                    <button onClick={this.delete}>delete</button>
                 </li>
             </div>
         )

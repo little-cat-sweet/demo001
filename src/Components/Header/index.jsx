@@ -19,7 +19,8 @@ class Header extends Component{
         let person = {
             id : nanoid(),
             name : name,
-            age : this.state.age
+            age : this.state.age,
+            done : false
         }
         this.setState({name : ""})
         this.setState({age : 0})

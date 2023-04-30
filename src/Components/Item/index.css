@@ -1,3 +1,9 @@
 .Item li{
     list-style: none;
 }
+.Item button{
+    margin-left: 50px;
+}
+.Item {
+    margin-left: 170px;
+}

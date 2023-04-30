@@ -10,12 +10,14 @@ class Manage extends Component{
             {
                 id : "001",
                 age : 45,
-                name : "tom"
+                name : "tom",
+                done : true
             },
             {
                 id : "002",
                 age : 18,
-                name : "mary"
+                name : "mary",
+                done : false
             }
         ]
     }
@@ -48,27 +50,78 @@ class Manage extends Component{
 
     add = (person) => {
 
-        let newPersons = this.state.persons;
-        newPersons.push(person);
-        this.setState({persons : newPersons});
-        alert("add successfully !")
+        if (window.confirm("you sure you wanna add ?")) {
+
+            let newPersons = this.state.persons;
+            newPersons.push(person);
+            this.setState({persons : newPersons});
+
+        }
     }
 
     componentDidMount() {
         console.log("Manage mounted.")
     }
 
-    flushFooter = () =>{
+    updateChecked = (id, checked) => {
 
+        let newPersons = [];
+        const {persons} = this.state;
+        for(let i = 0; i < persons.length; i ++){
+            let person = persons[i];
+            if(person.id !== id){
+                newPersons.push(person)
+            }else{
+                person.done = checked
+                newPersons.push(person)
+            }
+        }
+        this.setState({persons: newPersons})
+    }
+
+    updateCheckedByFooter = (e) => {
+
+        let newPersons = [];
+        const {persons} = this.state;
+        for(let i = 0; i < persons.length; i ++){
+            let person = persons[i];
+            person.done = e.target.checked;
+            newPersons.push(person);
+        }
+        console.log(JSON.stringify(newPersons))
+        this.setState({persons: newPersons})
+    }
+
+    deleteSelectItems = (ids) => {
+        return () => {
+            let newPersons = [];
+            const {persons} = this.state;
+            for(let i = 0; i < persons.length; i ++){
+                let person = persons[i];
+                if(ids.indexOf(person.id) === -1){
+                    newPersons.push(person);
+                }
+            }
+            this.setState({persons: newPersons})
+        }
     }
 
     render() {
+
         const persons = this.state.persons
         return(
             <div>
                 <Header addPerson={this.add}/>
-                <List persons = {persons} updatePerson={this.update} deletePerson = {this.delete}/>
-                <Footer persons = {persons}/>
+                <List
+                    persons = {persons}
+                    deletePerson = {this.delete}
+                    upChecked = {this.updateChecked}
+                />
+                <Footer
+                    persons = {persons}
+                    deleteSelectItems = {this.deleteSelectItems}
+                    updateChecked = {this.updateCheckedByFooter}
+                />
             </div>
         )
     }

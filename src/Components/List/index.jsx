@@ -8,14 +8,19 @@ class List extends Component{
     }
 
     render() {
-    const {persons, updatePerson, deletePerson} = this.props
+    const {persons, deletePerson, upChecked} = this.props
         return (
             <div>
                 <ul>
                     {
                         persons.map((item) => {
                             return (
-                                <Item key={item.id} deletePerson = {deletePerson} person = {item} updatePerson = {updatePerson}/>
+                                <Item
+                                    key={item.id}
+                                    deletePerson = {deletePerson}
+                                    person = {item}
+                                    updateChecked = {upChecked}
+                                />
                             )
                         })
                     }
