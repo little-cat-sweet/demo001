@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import List from "../List";
+import Header from "../Header";
+import Footer from "../Footer";
 
 class Manage extends Component{
 
@@ -44,11 +46,29 @@ class Manage extends Component{
         this.setState({persons : arr})
     }
 
+    add = (person) => {
+
+        let newPersons = this.state.persons;
+        newPersons.push(person);
+        this.setState({persons : newPersons});
+        alert("add successfully !")
+    }
+
+    componentDidMount() {
+        console.log("Manage mounted.")
+    }
+
+    flushFooter = () =>{
+
+    }
+
     render() {
         const persons = this.state.persons
         return(
             <div>
+                <Header addPerson={this.add}/>
                 <List persons = {persons} updatePerson={this.update} deletePerson = {this.delete}/>
+                <Footer persons = {persons}/>
             </div>
         )
     }

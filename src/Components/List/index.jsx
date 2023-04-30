@@ -3,6 +3,10 @@ import Item from "../Item";
 
 class List extends Component{
 
+    componentDidMount() {
+        console.log("List mounted.")
+    }
+
     render() {
     const {persons, updatePerson, deletePerson} = this.props
         return (

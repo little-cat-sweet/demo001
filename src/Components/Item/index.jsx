@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-
+import './index.css'
 class Item extends Component{
 
     state = {
@@ -9,6 +9,11 @@ class Item extends Component{
         age : this.props.person.age,
         updatePerson : this.props.updatePerson,
         deletePerson : this.props.deletePerson
+    }
+
+    componentDidMount() {
+
+        console.log("Item mounted.")
     }
 
     update = () => {
@@ -22,7 +27,6 @@ class Item extends Component{
     }
 
     updateName = (e) => {
-        console.log("name func execute")
 
         this.setState({name : e.target.value})
     }
@@ -39,12 +43,12 @@ class Item extends Component{
 
     render() {
         return(
-            <>
+            <div className="Item">
                 <li>
                     person name is <input onChange={this.updateName}  value = {this.state.name}/>, and person age is <input onChange={this.updateAge} value = {this.state.age}/>
                     <button onClick={this.update}>update</button> <button onClick={this.delete}>delete</button>
                 </li>
-            </>
+            </div>
         )
     }
 }
